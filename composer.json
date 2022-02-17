@@ -1,0 +1,49 @@
+{
+	"name": "evotodi/wave-bundle",
+	"description": "Waveapps graphQL integration",
+	"version": "0.0.1",
+	"type": "symfony-bundle",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Evotodi",
+			"email": "evotodi@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=8.0",
+		"ext-json": "*",
+		"symfony/config": "5.4.*",
+		"symfony/dependency-injection": "5.4.*",
+		"symfony/http-kernel": "5.4.*",
+		"symfony/yaml": "5.4.*",
+		"guzzlehttp/guzzle": ">=6.0",
+		"nesbot/carbon": "^2.56"
+	},
+	"require-dev": {
+		"symfony/framework-bundle": "5.4.*",
+		"symfony/phpunit-bridge": "5.4.*",
+		"symfony/browser-kit": "5.4.*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Evotodi\\WaveBundle\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Evotodi\\WaveBundle\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"symfony/flex": true
+		}
+	},
+	"scripts": {
+		"auto-scripts": {
+			"cache:clear": "symfony-cmd",
+			"assets:install %PUBLIC_DIR%": "symfony-cmd"
+		}
+	}
+}
