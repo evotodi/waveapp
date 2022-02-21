@@ -1,7 +1,7 @@
 {
 	"name": "evotodi/wave-bundle",
 	"description": "Waveapps graphQL integration",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"type": "symfony-bundle",
 	"license": "MIT",
 	"authors": [
@@ -17,7 +17,7 @@
 		"symfony/dependency-injection": "5.4.*",
 		"symfony/http-kernel": "5.4.*",
 		"symfony/yaml": "5.4.*",
-		"guzzlehttp/guzzle": ">=6.0",
+		"guzzlehttp/guzzle": ">=6 | >=7",
 		"nesbot/carbon": "^2.56"
 	},
 	"require-dev": {
