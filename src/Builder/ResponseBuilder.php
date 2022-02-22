@@ -13,7 +13,6 @@ class ResponseBuilder
     {
         $json= json_decode($res->getBody(), 1);
         if(key_exists('errors', $json)){
-            dump($json);
             throw new ResponseException($json['errors'][0]['message']);
         }
         return $json;
@@ -29,7 +28,6 @@ class ResponseBuilder
         }
         if ($e->hasResponse()) {
             $response = json_decode($e->getResponse()->getBody(), 1);
-            dump($response);
             throw new ResponseException($response['errors'][0]['message']);
         }
 
