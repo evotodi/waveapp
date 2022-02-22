@@ -871,7 +871,7 @@ class WaveApp
      */
     public function invoiceSend(Invoice $invoice, string $to, string $subject, string $message, bool $attachPdf, string $fromAddress, bool $ccMyself): bool|array
     {
-        $params = ['input' => $invoice->toCreateArray()];
+        $params = ['input' => $invoice->toInvoiceSendArray()];
         $params['input']['to'] = $to;
         $params['input']['subject'] = $subject;
         $params['input']['message'] = $message;
@@ -895,7 +895,7 @@ class WaveApp
      */
     public function invoiceMarkSent(Invoice $invoice, string $sendMethod, DateTime $sentAt): bool|array
     {
-        $params = ['input' => $invoice->toCreateArray()];
+        $params = ['input' => $invoice->toInvoiceMarkSentArray()];
         $params['input']['sendMethod'] = $sendMethod;
         $params['input']['sentAt'] = $sentAt;
 
