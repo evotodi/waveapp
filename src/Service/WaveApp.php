@@ -102,16 +102,15 @@ class WaveApp
         }
     }
 
-    private function checkResponse(array $response, string $method): bool
+    private function checkResponse(array $response, string $method): bool|array
     {
         if(key_exists('inputErrors', $response['data'][$method])){
             if(!is_null($response['data'][$method]['inputErrors'])){
                 return false;
             }
         }
-
         if(key_exists('didSucceed', $response['data'][$method])){
-            return $response['data'][$method]['didSucceed'];
+            return $response;
         }
 
         return false;
@@ -582,7 +581,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function customerCreate(Customer $customer): bool
+    public function customerCreate(Customer $customer): bool|array
     {
         $query = $this->buildMutation(
             'customerCreate',
@@ -598,7 +597,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function customerPatch(Customer $customer): bool
+    public function customerPatch(Customer $customer): bool|array
     {
         $query = $this->buildMutation(
             'customerPatch',
@@ -614,7 +613,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function customerDelete(Customer $customer): bool
+    public function customerDelete(Customer $customer): bool|array
     {
         $query = $this->buildMutation(
             'customerDelete',
@@ -680,7 +679,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function productCreate(Product $product, ?string $incomeAccountId, ?string $expenseAccountId, ?string $businessId = null, ?array $defaultSalesTaxIds = []): bool
+    public function productCreate(Product $product, ?string $incomeAccountId, ?string $expenseAccountId, ?string $businessId = null, ?array $defaultSalesTaxIds = []): bool|array
     {
         $params = ['input' => $product->toCreateArray()];
         $params['input']['businessId'] = $businessId ?? $_ENV['WAVEAPPS_BUSINESS_ID'];
@@ -702,7 +701,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function productPatch(Product $product, ?string $incomeAccountId, ?string $expenseAccountId, ?array $defaultSalesTaxIds = []): bool
+    public function productPatch(Product $product, ?string $incomeAccountId, ?string $expenseAccountId, ?array $defaultSalesTaxIds = []): bool|array
     {
         $params = ['input' => $product->toPatchArray()];
         $params['input']['incomeAccountId'] = $incomeAccountId;
@@ -723,7 +722,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function productArchive(Product $product): bool
+    public function productArchive(Product $product): bool|array
     {
         $query = $this->buildMutation(
             'productArchive',
@@ -739,7 +738,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function salesTaxCreate(Tax $tax): bool
+    public function salesTaxCreate(Tax $tax): bool|array
     {
         $params = ['input' => $tax->toCreateArray()];
         $params['input']['businessId'] = $businessId ?? $_ENV['WAVEAPPS_BUSINESS_ID'];
@@ -757,7 +756,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function salesTaxPatch(Tax $tax): bool
+    public function salesTaxPatch(Tax $tax): bool|array
     {
         $query = $this->buildMutation(
             'salesTaxPatch',
@@ -773,7 +772,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function salesTaxArchive(Tax $tax): bool
+    public function salesTaxArchive(Tax $tax): bool|array
     {
         $query = $this->buildMutation(
             'salesTaxArchive',
@@ -789,7 +788,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function salesTaxRateCreate(TaxRate $taxRate, string $taxId): bool
+    public function salesTaxRateCreate(TaxRate $taxRate, string $taxId): bool|array
     {
         $params = ['input' => $taxRate->toCreateArray()];
         $params['input']['id'] = $taxId;
@@ -807,7 +806,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceCreate(Invoice $invoice): bool
+    public function invoiceCreate(Invoice $invoice): bool|array
     {
         $params = ['input' => $invoice->toCreateArray()];
         $params['input']['businessId'] = $businessId ?? $_ENV['WAVEAPPS_BUSINESS_ID'];
@@ -825,7 +824,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceClone(Invoice $invoice): bool
+    public function invoiceClone(Invoice $invoice): bool|array
     {
         $query = $this->buildMutation(
             'invoiceClone',
@@ -840,7 +839,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceDelete(Invoice $invoice): bool
+    public function invoiceDelete(Invoice $invoice): bool|array
     {
         $query = $this->buildMutation(
             'invoiceDelete',
@@ -855,7 +854,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceApprove(Invoice $invoice): bool
+    public function invoiceApprove(Invoice $invoice): bool|array
     {
         $query = $this->buildMutation(
             'invoiceApprove',
@@ -870,7 +869,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceSend(Invoice $invoice, string $to, string $subject, string $message, bool $attachPdf, string $fromAddress, bool $ccMyself): bool
+    public function invoiceSend(Invoice $invoice, string $to, string $subject, string $message, bool $attachPdf, string $fromAddress, bool $ccMyself): bool|array
     {
         $params = ['input' => $invoice->toCreateArray()];
         $params['input']['to'] = $to;
@@ -894,7 +893,7 @@ class WaveApp
      * @throws GuzzleException
      * @throws ResponseException
      */
-    public function invoiceMarkSent(Invoice $invoice, string $sendMethod, DateTime $sentAt): bool
+    public function invoiceMarkSent(Invoice $invoice, string $sendMethod, DateTime $sentAt): bool|array
     {
         $params = ['input' => $invoice->toCreateArray()];
         $params['input']['sendMethod'] = $sendMethod;
