@@ -2,6 +2,7 @@
 
 namespace Evotodi\WaveBundle\Service;
 
+use Carbon\Carbon;
 use DateTime;
 use Evotodi\WaveBundle\Builder\ResponseBuilder;
 use Evotodi\WaveBundle\Dto\Account;
@@ -897,7 +898,7 @@ class WaveApp
     {
         $params = ['input' => $invoice->toInvoiceMarkSentArray()];
         $params['input']['sendMethod'] = $sendMethod;
-        $params['input']['sentAt'] = $sentAt;
+        $params['input']['sentAt'] = Carbon::instance($sentAt)->utc()->toIso8601ZuluString('m');
 
         $query = $this->buildMutation(
             'invoiceMarkSent',
